@@ -6,7 +6,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -16,16 +15,11 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Build
-import androidx.compose.material.icons.filled.Email
-import androidx.compose.material.icons.filled.Face
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
-import androidx.compose.material3.Button
 import androidx.compose.material3.Divider
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -49,12 +43,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.compose.composable
 import com.animedfan.adfapp.data.DrawerItems
 import kotlinx.coroutines.launch
 
@@ -85,8 +77,8 @@ fun NavDrawer(navController: NavController) {
                     Box(modifier = Modifier
                         .fillMaxWidth()
                         .height(290.dp)
-                        .background(Color(0xffffc107)),
-//                        .background(Color(0x3607FFF7)),
+//                        .background(Color(0xffffc107)),
+                        .background(Color(0x3607FFF7)),
                         contentAlignment = Alignment.Center
                     )
                     {
@@ -95,7 +87,7 @@ fun NavDrawer(navController: NavController) {
                             verticalArrangement = Arrangement.SpaceAround,
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
-                            Image(painter = painterResource(id = R.drawable.new_image), contentDescription = "Profile Pic",
+                            Image(painter = painterResource(id = R.drawable.navimage), contentDescription = "Profile Pic",
                                 modifier = Modifier
                                     .size(190.dp)
                                     .clip(CircleShape)
@@ -175,7 +167,10 @@ fun NavDrawer(navController: NavController) {
                         }
                     })
             }
-        ){}
+        ){
+            HomeScreen(navController = navController)
+//            ProfileScreen(navController = navController)
+        }
 //        { paddingValues ->
 //            Box(modifier = Modifier.fillMaxSize()
 //                .padding(paddingValues),
