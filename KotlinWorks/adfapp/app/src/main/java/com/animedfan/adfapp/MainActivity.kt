@@ -27,10 +27,18 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
+import com.animedfan.adfapp.downloadercomponents.AndroidDownloader
+import com.animedfan.adfapp.navdrawers.AboutNavDrawer
+import com.animedfan.adfapp.navdrawers.HomeScreenNavDrawer
+import com.animedfan.adfapp.navdrawers.ProfileScreenNavDrawer
+import com.animedfan.adfapp.navdrawers.ProjectsNavDrawer
+import com.animedfan.adfapp.screens.AppInfoScreen
+import com.animedfan.adfapp.screens.SplashScreen
 import com.animedfan.adfapp.ui.theme.AdfappTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        val downloader = AndroidDownloader(this)
         super.onCreate(savedInstanceState)
         setContent {
             AdfappTheme {
@@ -43,7 +51,7 @@ class MainActivity : ComponentActivity() {
 
 //                    MyApp()
 
-                    NavHost(navController = navController, startDestination = "Home") {
+                    NavHost(navController = navController, startDestination = "Splash") {
                         composable("Splash"){
                             SplashScreen(navController = navController, context = this@MainActivity)
                         }
@@ -51,16 +59,16 @@ class MainActivity : ComponentActivity() {
                             AppInfoScreen(navController = navController, context = this@MainActivity)
                         }
                         composable("Home"){
-                            HomeScreen(navController = navController)
+                            HomeScreenNavDrawer(navController = navController)
                         }
                         composable("Profile"){
-                            HomeScreen(navController = navController)
+                            ProfileScreenNavDrawer(navController = navController, downloader = downloader)
                         }
                         composable("Projects Overview"){
-                            HomeScreen(navController = navController)
+                            ProjectsNavDrawer(navController = navController)
                         }
                         composable("About"){
-                            HomeScreen(navController = navController)
+                            AboutNavDrawer(navController = navController)
                         }
                     }
                 }
