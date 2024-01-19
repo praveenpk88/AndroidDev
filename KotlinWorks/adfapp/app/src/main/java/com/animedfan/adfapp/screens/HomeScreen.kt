@@ -72,8 +72,8 @@ fun HomeScreen(navController: NavController) {
 
     val scope = rememberCoroutineScope()
 
-    Column (modifier = Modifier.fillMaxSize(),
-//        .verticalScroll(rememberScrollState()),
+    Column (modifier = Modifier.fillMaxSize()
+        .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top){
         Box(modifier = Modifier

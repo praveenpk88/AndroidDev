@@ -71,4 +71,16 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.7.6")
     implementation("com.airbnb.android:lottie-compose:5.2.0")
     implementation("com.google.accompanist:accompanist-pager:0.12.0")
+    //noinspection GradleCompatible
+//    implementation("com.android.support:customtabs:28.0.0")
+    implementation("androidx.browser:browser:1.7.0")
 }
+
+
+
+
+
+
+
+
+

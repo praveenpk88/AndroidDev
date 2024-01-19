@@ -1,5 +1,10 @@
 package com.animedfan.adfapp.screens
 
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -26,6 +31,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -36,6 +42,7 @@ import androidx.navigation.NavController
 import com.animedfan.adfapp.R
 import com.animedfan.adfapp.downloadercomponents.AndroidDownloader
 import com.google.accompanist.pager.ExperimentalPagerApi
+
 
 
 @OptIn(ExperimentalPagerApi::class)
@@ -177,22 +184,25 @@ fun ProfileScreen(navController: NavController, downloader: AndroidDownloader) {
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 val uriHandler = LocalUriHandler.current
-                Button(onClick = {
-                        uriHandler.openUri("https://www.linkedin.com/in/praveenkumarpk08/")
-                }) {
-                    Text(text = "LinkedIn")
-                }
-                Button(onClick = {
-                    uriHandler.openUri("https://github.com/praveenpk88")
-
-                }) {
-                    Text(text = "GitHub")
-                }
-                Button(onClick = {
-                    uriHandler.openUri("https://twitter.com/Anime_Fan08")
-                }) {
-                    Text(text = "Twitter")
-                }
+//                Button(onClick = {
+//                        uriHandler.openUri("https://www.linkedin.com/in/praveenkumarpk08/")
+//                }) {
+//                    Text(text = "LinkedIn")
+//                }
+                CustomButtons(name = "LinkedIn", url = "https://www.linkedin.com/in/praveenkumarpk08/")
+                CustomButtons(name = "GitHub", url = "https://github.com/praveenpk88")
+                CustomButtons(name = "Twitter", url = "https://twitter.com/Anime_Fan08")
+//                Button(onClick = {
+//                    uriHandler.openUri("https://github.com/praveenpk88")
+//
+//                }) {
+//                    Text(text = "GitHub")
+//                }
+//                Button(onClick = {
+//                    uriHandler.openUri("https://twitter.com/Anime_Fan08")
+//                }) {
+//                    Text(text = "Twitter")
+//                }
             }
 
             Spacer(modifier = Modifier.size(15.dp))
@@ -201,5 +211,33 @@ fun ProfileScreen(navController: NavController, downloader: AndroidDownloader) {
             Spacer(modifier = Modifier.size(3.dp))
             Divider(thickness = 2.5.dp)
         }
+    }
+}
+
+@Composable
+fun CustomButtons(name: String ,url: String) {
+    val ctx = LocalContext.current
+    Button(
+        onClick = {
+        openTab(ctx,url)
+    },
+        ) {
+            Text(text = name)
+    }
+}
+
+fun openTab(ctx: Context, url: String) {
+    val package_name = "com.android.chrome"
+    val activity = (ctx as? Activity)
+    val builder = CustomTabsIntent.Builder()
+    builder.setShowTitle(true)
+    builder.setInstantAppsEnabled(true)
+    val customBuilder = builder.build()
+    if (package_name != null) {
+        customBuilder.intent.setPackage(package_name)
+        customBuilder.launchUrl(ctx, Uri.parse(url))
+    } else {
+        val i = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        activity?.startActivity(i)
     }
 }

@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,7 +16,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
@@ -71,7 +74,10 @@ fun AppInfoScreen(navController: NavController, context: MainActivity) {
     )
 
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
+            .background(if (isSystemInDarkTheme()) Color.Black else Color.White),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         HorizontalPager(
@@ -94,13 +100,15 @@ fun AppInfoScreen(navController: NavController, context: MainActivity) {
                     textAlign = TextAlign.Center,
                     fontSize = 40.sp,
                     fontWeight = FontWeight.Bold,
-                    lineHeight = 45.sp
+                    lineHeight = 45.sp,
+                    color = (if (isSystemInDarkTheme()) Color.White else Color.Black),
                 )
                 Text(text = descriptions[currentPage],
                     modifier = Modifier.padding(top = 45.dp, start = 10.dp, end = 10.dp),
                     textAlign = TextAlign.Center,
                     fontSize = 22.5.sp,
-                    lineHeight = 27.5.sp
+                    lineHeight = 27.5.sp,
+                    color = (if (isSystemInDarkTheme()) Color.White else Color.Black),
                 )
             }
         }
@@ -139,7 +147,7 @@ fun ButtonSection(pagerState: PagerState, navController: NavController, context:
                 },
                 fontSize = 22.sp,
                 fontWeight = FontWeight.Bold,
-                color = Color.Black
+                color = (if (isSystemInDarkTheme()) Color.White else Color.Black),
             )
             if (pagerState.currentPage > 0){
                 Text(text = "Back",
@@ -155,7 +163,7 @@ fun ButtonSection(pagerState: PagerState, navController: NavController, context:
                         },
                     fontSize = 22.sp,
                     fontWeight = FontWeight.Bold,
-                    color = Color.Black
+                    color = (if (isSystemInDarkTheme()) Color.White else Color.Black),
                 )
             }
         }
@@ -167,8 +175,14 @@ fun ButtonSection(pagerState: PagerState, navController: NavController, context:
             },modifier = Modifier
                 .fillMaxWidth()
                 .align(Alignment.BottomCenter),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0x26E92F1E)
+                colors = (if (isSystemInDarkTheme())
+                    ButtonDefaults.buttonColors(
+                        containerColor = Color(0xFFE92F1E)
+                    )
+                else
+                    ButtonDefaults.buttonColors(
+                        containerColor = Color(0x26E92F1E)
+                    )
                 )
                 )
             {
@@ -176,7 +190,8 @@ fun ButtonSection(pagerState: PagerState, navController: NavController, context:
                     text = "Get Started",
                     fontSize = 22.sp,
                     fontWeight = FontWeight.Bold,
-                    color = Color.Black)
+                    color = (if (isSystemInDarkTheme()) Color.White else Color.Black)
+                )
             }
         }
         }
@@ -203,9 +218,21 @@ fun IndicatorSingleDot(isSelected: Boolean) {
         .height(15.dp)
         .width(width.value)
         .clip(CircleShape)
-        .background(if (isSelected) Color(0xFFE92F1E) else Color(0x26E92F1E))
+        .background(
+            (
+                    if (isSystemInDarkTheme())
+                        if (isSelected)
+                            Color(0xFFE92F1E)
+                        else
+                            Color(0xFFFFFFFF)
+                    else
+                        if (isSelected)
+                            Color(0xFFE92F1E)
+                        else
+                            Color(0x26E92F1E)
+                                )
+        )
     )
-
 }
 
 private fun firstTimeInstall(context: MainActivity) {

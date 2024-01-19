@@ -29,6 +29,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.platform.ClipboardManager
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.res.painterResource
@@ -131,27 +132,21 @@ fun AboutOverview(navController: NavController) {
             //            fontWeight = FontWeight.Bold
         )
         Spacer(modifier = Modifier.size(20.dp))
-        Row(
-            modifier = Modifier
-                .fillMaxSize()
-                .align(Alignment.Start),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceEvenly
-        ) {
-            OutlinedTextField(
-                value = text,
-                label = {
-                    Text(
-                        text = "Our Email"
-                    )
-                        },
-                leadingIcon = { Icon(imageVector = Icons.Default.Email, contentDescription = "emailIcon") },
-                onValueChange = {text})
-            Button(onClick = {
-                clipboardManager.setText(AnnotatedString((text)))
-            }) {
-                Text("Copy")
-            }
+        OutlinedTextField(
+            value = text,
+            label = {
+                Text(
+                    text = "Our Email"
+                )
+            },
+            leadingIcon = { Icon(imageVector = Icons.Default.Email, contentDescription = "emailIcon") },
+            onValueChange = {text})
+        Spacer(modifier = Modifier.size(5.dp))
+        Button(onClick = {
+            clipboardManager.setText(AnnotatedString((text)))
+        },
+            modifier = Modifier.scale(1F)) {
+            Text("Copy")
         }
         Spacer(modifier = Modifier.size(20.dp))
     }
